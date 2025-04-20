@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gym Membership Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://images.unsplash.com/photo-1605296867304-46d5465a13f1?auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 36px;
+      font-weight: bold;
+      color: #17263b;
+      background: linear-gradient(45deg, #191f27, #1b2024);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1.5px;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #3e4f66;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      margin-top: 20px;
+      background: linear-gradient(45deg, #4b637c, #4e5d74);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #0d47a1, #1976d2);
+    }
+
+    .status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .success {
+      background-color: #d0f0c0;
+      color: #1b5e20;
+    }
+
+    .error {
+      background-color: #ffcdd2;
+      color: #b71c1c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Gym Membership</h2>
+
+    <!-- Member Registration Form -->
+    <form id="member-form">
+      <label>Full Name:</label>
+      <input type="text" id="name" required />
+      <label>Phone Number:</label>
+      <input type="text" id="phone" required maxlength="10" oninput="validatePhone('phone')" />
+      <label>Membership Type:</label>
+      <select id="membership_type" required>
+        <option value="">Select Membership Type</option>
+        <option value="1">Monthly</option>
+        <option value="2">Yearly</option>
+      </select>
+      <button type="submit">Register</button>
+    </form>
+    <div class="status" id="member-status"></div>
+
+    <!-- Class Registration Form -->
+    <form id="class-form">
+      <label>Class Name:</label>
+      <select id="class_name" required>
+        <option value="Yoga">Yoga</option>
+        <option value="Cardio">Cardio</option>
+        <option value="Strength Training">Strength Training</option>
+        <option value="Pilates">Pilates</option>
+        <option value="Zumba">Zumba</option>
+        <option value="CrossFit">CrossFit</option>
+        <option value="Boxing">Boxing</option>
+        <option value="Martial Arts">Martial Arts</option>
+      </select>
+      <label>Class Schedule:</label>
+      <select id="class_schedule" required>
+        <option value="Mon-Wed-Fri 6 AM">Mon-Wed-Fri 6 AM</option>
+        <option value="Tue-Thu 7 PM">Tue-Thu 7 PM</option>
+      </select>
+      <button type="submit">Add Class</button>
+    </form>
+    <div class="status" id="class-status"></div>
+
+    <!-- Trainer Registration Form -->
+    <form id="trainer-form">
+      <label>Trainer Name:</label>
+      <input type="text" id="trainer_name" required />
+      <label>Trainer Phone:</label>
+      <input type="text" id="trainer_phone" required maxlength="10" oninput="validatePhone('trainer_phone')" />
+      <label>Trainer Specialization:</label>
+      <select id="trainer_spec" required>
+        <option value="">Select Specialization</option>
+        <option value="Yoga">Yoga</option>
+        <option value="Cardio">Cardio</option>
+        <option value="Strength Training">Strength Training</option>
+        <option value="Pilates">Pilates</option>
+        <option value="Zumba">Zumba</option>
+        <option value="CrossFit">CrossFit</option>
+        <option value="Personal Trainer">Personal Trainer</option>
+        <option value="Boxing">Boxing</option>
+        <option value="Martial Arts">Martial Arts</option>
+      </select>
+      <button type="submit">Add Trainer</button>
+    </form>
+    <div class="status" id="trainer-status"></div>
+
+    <!-- Payment Form -->
+    <form id="payment-form">
+      <label>Member ID:</label>
+      <input type="number" id="payment_member_id" required />
+      <label>Amount:</label>
+      <select id="payment_amount" required>
+        <option value="50">50</option>
+        <option value="500">500</option>
+      </select>
+      <label>Payment Method:</label>
+      <select id="payment_method" required>
+        <option value="Credit Card">Credit Card</option>
+        <option value="Cash">Cash</option>
+      </select>
+      <button type="submit">Make Payment</button>
+    </form>
+    <div class="status" id="payment-status"></div>
+  </div>
+
+  <script>
+    function validatePhone(inputId) {
+      const phoneInput = document.getElementById(inputId);
+      let phone = phoneInput.value.replace(/\D/g, '');
+      if (phone.length > 10) phone = phone.slice(0, 10);
+      phoneInput.value = phone;
+    }
+
+    async function handleForm(formId, statusId, endpoint, fields, callback) {
+      const form = document.getElementById(formId);
+      const statusDiv = document.getElementById(statusId);
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const data = {};
+        let valid = true;
+
+        fields.forEach(id => {
+          const value = document.getElementById(id).value.trim();
+          data[id] = value;
+
+          // Phone validation
+          if ((id === "phone" || id === "trainer_phone") && !/^\d{10}$/.test(value)) {
+            valid = false;
+            statusDiv.style.display = "block";
+            statusDiv.className = "status error";
+            statusDiv.textContent = "Phone number must be exactly 10 digits and numeric.";
+          }
+        });
+
+        if (!valid) return;
+
+        try {
+          const res = await fetch(`http://localhost:3000/api/${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+          const result = await res.json();
+          statusDiv.style.display = "block";
+          if (res.ok) {
+            statusDiv.className = "status success";
+            statusDiv.textContent = result.message || "Success!";
+            if (callback) callback(result);
+            form.reset();
+          } else {
+            statusDiv.className = "status error";
+            statusDiv.textContent = result.error || "An error occurred.";
+          }
+        } catch (err) {
+          statusDiv.className = "status error";
+          statusDiv.textContent = "Error: " + err.message;
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      handleForm("member-form", "member-status", "members", ["name", "phone", "membership_type"], (result) => {
+        document.getElementById("member-status").textContent = `Member registered. Your Member ID is: ${result.memberId}`;
+        localStorage.setItem("memberId", result.memberId);
+      });
+
+      handleForm("class-form", "class-status", "classes", ["class_name", "class_schedule"], () => {
+        document.getElementById("class-status").textContent = "Class added successfully.";
+      });
+
+      handleForm("trainer-form", "trainer-status", "trainers", ["trainer_name", "trainer_phone", "trainer_spec"], () => {
+        document.getElementById("trainer-status").textContent = "Trainer added successfully.";
+      });
+
+      handleForm("payment-form", "payment-status", "payments", ["payment_member_id", "payment_amount", "payment_method"], () => {
+        const memberId = localStorage.getItem("memberId");
+        if (memberId) {
+          document.getElementById("payment-status").textContent = `Payment for Member ID ${memberId} made successfully.`;
+        } else {
+          document.getElementById("payment-status").textContent = "No Member ID found for payment.";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
